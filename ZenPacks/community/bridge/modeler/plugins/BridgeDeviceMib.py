@@ -2,8 +2,8 @@
 # BridgeDeviceMib modeler plugin
 ########################################################################################################################
 
-from Products.DataCollector.plugins.CollectorPlugin import SnmpPlugin, GetTableMap, GetMap
-from Products.DataCollector.plugins.DataMaps import ObjectMap
+from Products.DataCollector.plugins.CollectorPlugin import SnmpPlugin, GetMap
+# from Products.DataCollector.plugins.DataMaps import ObjectMap
 
 __doc__ = '''BridgeDeviceMib
 
@@ -12,6 +12,7 @@ BridgeDeviceMib gets number of ports and base MAC address for switch supporting 
 $Id: $'''
 
 __version__ = '$Revision: $'[11:-2]
+
 
 class BridgeDeviceMib(SnmpPlugin):
 
@@ -28,10 +29,13 @@ class BridgeDeviceMib(SnmpPlugin):
         # Collect physical port forwarding table
         getdata, tabledata = results
 
+        log.warn("Get Data= %s", getdata)
+        log.warn("Table Data= %s", tabledata)
+
         try:
             om = self.objectMap(getdata)
             om.setHWSerialNumber = self.asmac(om.setHWSerialNumber)
-            om.setHWtag = 'Number of ports = {}'.format(om.setHWtag)
+            om.setHWTag = 'Number of ports = {}'.format(om.setHWTag)
             return om
         except:
             log.warn(' Error in getting data for BridgeDeviceMib modeler plugin')
