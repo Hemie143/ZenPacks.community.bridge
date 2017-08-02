@@ -16,7 +16,7 @@ __version__ = "$Revision: 1.4 $"[11:-2]
 
 
 class BridgeInterfaceInfo(ComponentInfo):
-    implements(IBridgeInterfaceInfo)
+    implements(interfaces.IBridgeInterfaceInfo)
 
     Port = ProxyProperty('Port')
     RemoteAddress = ProxyProperty('RemoteAddress')
